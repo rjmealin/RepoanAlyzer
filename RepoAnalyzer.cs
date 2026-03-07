@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using System.Collections.Concurrent;
 
 
 public sealed record LizardTotals(
@@ -15,6 +16,8 @@ public sealed record LizardTotals(
 
 public static class RepoAnalyzer
 {
+    private const int MaxParallelismCap = 16;
+
     /// <summary>
     /// Clone -> run lizard -> parse totals -> delete folder.
     /// </summary>
@@ -22,18 +25,22 @@ public static class RepoAnalyzer
         GitHubRepoItem repo,
         CancellationToken ct = default)
     {
+        var fullName = !string.IsNullOrWhiteSpace(repo.FullName)
+            ? repo.FullName
+            : throw new ArgumentException("Repository full name cannot be null or empty.", nameof(repo));
+
         var tempRoot = Path.Combine(Path.GetTempPath(), "repo-analysis");
         Directory.CreateDirectory(tempRoot);
 
         // Use a unique folder per run
-        var safeName = repo.FullName.Replace('/', '_');
+        var safeName = fullName.Replace('/', '_');
         var workDir = Path.Combine(tempRoot, $"{safeName}_{Guid.NewGuid():N}");
 
         try
         {
-            Console.WriteLine($"Analyzing {repo.FullName}...");
+            Console.WriteLine($"Analyzing {fullName}...");
             // 1) Clone (shallow)
-            var cloneUrl = $"https://github.com/{repo.FullName}.git";
+            var cloneUrl = $"https://github.com/{fullName}.git";
             await RunProcessAsync(
                 fileName: "git",
                 arguments: $"clone --depth 1 {EscapeArg(cloneUrl)} {EscapeArg(workDir)}",
@@ -54,7 +61,7 @@ public static class RepoAnalyzer
                 ct: ct);
 
             // 3) Parse the totals summary
-            var totals = ParseLizardTotals(lizardOutput, repo.FullName);
+            var totals = ParseLizardTotals(lizardOutput, fullName);
             
             return totals;
         }
@@ -63,6 +70,41 @@ public static class RepoAnalyzer
             // 4) Always delete the repo folder
             TryDeleteDirectory(workDir);
         }
+    }
+
+    /// <summary>
+    /// Analyze repositories concurrently with bounded parallelism.
+    /// Results preserve the input order.
+    /// </summary>
+    public static async Task<IReadOnlyList<LizardTotals>> CloneAnalyzeDeleteManyAsync(
+        IEnumerable<GitHubRepoItem> repos,
+        int? maxDegreeOfParallelism = null,
+        CancellationToken ct = default)
+    {
+        var repoList = repos.ToList();
+        if (repoList.Count == 0)
+            return Array.Empty<LizardTotals>();
+
+        var degree = maxDegreeOfParallelism.GetValueOrDefault(GetDefaultParallelism());
+        if (degree < 1)
+            throw new ArgumentOutOfRangeException(nameof(maxDegreeOfParallelism), "Parallelism must be at least 1.");
+
+        var results = new ConcurrentDictionary<int, LizardTotals>();
+        var options = new ParallelOptions
+        {
+            MaxDegreeOfParallelism = degree,
+            CancellationToken = ct
+        };
+
+        await Parallel.ForEachAsync(Enumerable.Range(0, repoList.Count), options, async (index, token) =>
+        {
+            var totals = await CloneAnalyzeDeleteAsync(repoList[index], token);
+            results[index] = totals;
+        });
+
+        return Enumerable.Range(0, repoList.Count)
+            .Select(i => results[i])
+            .ToList();
     }
 
     private static LizardTotals ParseLizardTotals(string output, string repoName)
@@ -254,4 +296,12 @@ public static class RepoAnalyzer
 
     private static string EscapeArg(string arg)
         => OperatingSystem.IsWindows() ? $"\"{arg}\"" : arg;
+
+    private static int GetDefaultParallelism()
+    {
+        // Cloning and process execution are mostly I/O bound. Keep this bounded
+        // to avoid overwhelming disk/network while still using concurrency.
+        var calculated = Math.Max(2, Environment.ProcessorCount * 2);
+        return Math.Min(calculated, MaxParallelismCap);
+    }
 }

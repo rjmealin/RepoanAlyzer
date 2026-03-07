@@ -15,16 +15,11 @@ static async Task RunAnalysis()
 
     var repos = GetAllRepos();
 
-    var threeRepos = repos.Take(20).ToList();
+    var smallerRepos = repos.Where(r => r.Size < 50000).Take(100).ToList();
 
-    var repoResults = new List<LizardTotals>();
-    foreach (var repo in threeRepos)
-    {
-        var result = await RepoAnalyzer.CloneAnalyzeDeleteAsync(repo);
-        repoResults.Add(result);
-    }
+    var repoResults = await RepoAnalyzer.CloneAnalyzeDeleteManyAsync(smallerRepos, maxDegreeOfParallelism: 6);
 
-    foreach (var (repo, analysis) in threeRepos.Zip(repoResults, (r, a) => (Repo: r, Analysis: a)))
+    foreach (var (repo, analysis) in smallerRepos.Zip(repoResults, (r, a) => (Repo: r, Analysis: a)))
     {
         Console.WriteLine($"Repo: {repo.FullName}");
         Console.WriteLine($"  Stars: {repo.StargazersCount}, Forks: {repo.ForksCount}, Issues: {repo.OpenIssuesCount}, License: {repo.License}");
