@@ -1,0 +1,29 @@
+[
+  {
+    "TotalNloc": 839,
+    "AvgNloc": 13.9,
+    "AvgCcn": 2.5,
+    "AvgToken": 79.3,
+    "FunctionCount": 55,
+    "WarningCount": 0,
+    "RepoName": "public-apis/public-apis"
+  },
+  {
+    "TotalNloc": 248,
+    "AvgNloc": 38.3,
+    "AvgCcn": 17.3,
+    "AvgToken": 276.3,
+    "FunctionCount": 6,
+    "WarningCount": 2,
+    "RepoName": "EbookFoundation/free-programming-books"
+  },
+  {
+    "TotalNloc": 655,
+    "AvgNloc": 3.6,
+    "AvgCcn": 1.4,
+    "AvgToken": 23.1,
+    "FunctionCount": 148,
+    "WarningCount": 0,
+    "RepoName": "donnemartin/system-design-primer"
+  }
+]
