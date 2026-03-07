@@ -107,6 +107,53 @@ public static class RepoAnalyzer
             .ToList();
     }
 
+    /// <summary>
+    /// Analyze repositories concurrently and invoke callbacks for each completion.
+    /// Continues processing when a single repo fails.
+    /// </summary>
+    public static async Task CloneAnalyzeDeleteManyWithCallbacksAsync(
+        IEnumerable<GitHubRepoItem> repos,
+        Func<LizardTotals, Task> onSuccess,
+        Func<GitHubRepoItem, Exception, Task>? onError = null,
+        int? maxDegreeOfParallelism = null,
+        CancellationToken ct = default)
+    {
+        ArgumentNullException.ThrowIfNull(repos);
+        ArgumentNullException.ThrowIfNull(onSuccess);
+
+        var repoList = repos.ToList();
+        if (repoList.Count == 0)
+            return;
+
+        var degree = maxDegreeOfParallelism.GetValueOrDefault(GetDefaultParallelism());
+        if (degree < 1)
+            throw new ArgumentOutOfRangeException(nameof(maxDegreeOfParallelism), "Parallelism must be at least 1.");
+
+        var options = new ParallelOptions
+        {
+            MaxDegreeOfParallelism = degree,
+            CancellationToken = ct
+        };
+
+        await Parallel.ForEachAsync(repoList, options, async (repo, token) =>
+        {
+            try
+            {
+                var totals = await CloneAnalyzeDeleteAsync(repo, token);
+                await onSuccess(totals);
+            }
+            catch (OperationCanceledException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                if (onError is not null)
+                    await onError(repo, ex);
+            }
+        });
+    }
+
     private static LizardTotals ParseLizardTotals(string output, string repoName)
     {
         var lines = output.Split('\n').Select(l => l.TrimEnd('\r')).ToArray();

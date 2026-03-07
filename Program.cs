@@ -12,30 +12,93 @@ await RunAnalysis();
 
 static async Task RunAnalysis()
 {
-
     var repos = GetAllRepos();
-
-    var smallerRepos = repos.Where(r => r.Size < 50000).Take(100).ToList();
-
-    var repoResults = await RepoAnalyzer.CloneAnalyzeDeleteManyAsync(smallerRepos, maxDegreeOfParallelism: 6);
-
-    foreach (var (repo, analysis) in smallerRepos.Zip(repoResults, (r, a) => (Repo: r, Analysis: a)))
-    {
-        Console.WriteLine($"Repo: {repo.FullName}");
-        Console.WriteLine($"  Stars: {repo.StargazersCount}, Forks: {repo.ForksCount}, Issues: {repo.OpenIssuesCount}, License: {repo.License}");
-        Console.WriteLine($"  Created At: {repo.CreatedAt}, Last Pushed At: {repo.PushedAt}");
-        Console.WriteLine($"  Lizard Totals - NLOC: {analysis.TotalNloc}, Avg NLOC/Func: {analysis.AvgNloc}, Avg CCN/Func: {analysis.AvgCcn}, Avg Token/Func: {analysis.AvgToken}, Func Count: {analysis.FunctionCount}, Warning Count: {analysis.WarningCount}");
-    }
-
-    //save the results to a json file for later analysis
-    var fileName = Path.Combine(Environment.CurrentDirectory, "repo_analysis_results.json");
+    var resultsFile = Path.Combine(Environment.CurrentDirectory, "repo_analysis_results.json");
     var jsonOpts = new JsonSerializerOptions
     {
         WriteIndented = true,
         DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
     };
-    await File.WriteAllTextAsync(fileName, JsonSerializer.Serialize(repoResults, jsonOpts));
 
+    var existingResults = await LoadExistingResultsAsync(resultsFile);
+    var completedRepos = new HashSet<string>(
+        existingResults
+            .Select(r => r.RepoName)
+            .Where(name => !string.IsNullOrWhiteSpace(name)),
+        StringComparer.OrdinalIgnoreCase);
+
+    var reposToAnalyze = repos
+        .Where(r => r.Size < 50000 && !string.IsNullOrWhiteSpace(r.FullName))
+        .GroupBy(r => r.FullName!, StringComparer.OrdinalIgnoreCase)
+        .Select(g => g.First())
+        .Where(r => !completedRepos.Contains(r.FullName!))
+        .ToList();
+
+    Console.WriteLine($"Loaded {existingResults.Count} previous results.");
+    Console.WriteLine($"Queued {reposToAnalyze.Count} repos for analysis (size < 50000 and not already analyzed).");
+
+    var writeGate = new SemaphoreSlim(1, 1);
+
+    await RepoAnalyzer.CloneAnalyzeDeleteManyWithCallbacksAsync(
+        reposToAnalyze,
+        onSuccess: async totals =>
+        {
+            await writeGate.WaitAsync();
+            try
+            {
+                if (completedRepos.Contains(totals.RepoName))
+                    return;
+
+                existingResults.Add(totals);
+                completedRepos.Add(totals.RepoName);
+                await WriteResultsAtomicallyAsync(resultsFile, existingResults, jsonOpts);
+            }
+            finally
+            {
+                writeGate.Release();
+            }
+
+            Console.WriteLine($"Saved: {totals.RepoName}");
+        },
+        onError: (repo, ex) =>
+        {
+            var name = string.IsNullOrWhiteSpace(repo.FullName) ? "<unknown>" : repo.FullName;
+            Console.WriteLine($"Failed: {name} - {ex.Message}");
+            return Task.CompletedTask;
+        },
+        maxDegreeOfParallelism: 6);
+
+    Console.WriteLine($"Analysis complete. Total stored results: {existingResults.Count}");
+}
+
+static async Task<List<LizardTotals>> LoadExistingResultsAsync(string filePath)
+{
+    if (!File.Exists(filePath))
+        return new List<LizardTotals>();
+
+    var json = await File.ReadAllTextAsync(filePath);
+    if (string.IsNullOrWhiteSpace(json))
+        return new List<LizardTotals>();
+
+    return JsonSerializer.Deserialize<List<LizardTotals>>(json) ?? new List<LizardTotals>();
+}
+
+static async Task WriteResultsAtomicallyAsync(
+    string filePath,
+    List<LizardTotals> results,
+    JsonSerializerOptions jsonOptions)
+{
+    var directory = Path.GetDirectoryName(filePath) ?? Environment.CurrentDirectory;
+    Directory.CreateDirectory(directory);
+
+    var tempPath = Path.Combine(directory, $"{Path.GetFileName(filePath)}.{Guid.NewGuid():N}.tmp");
+    var serialized = JsonSerializer.Serialize(results, jsonOptions);
+    await File.WriteAllTextAsync(tempPath, serialized);
+
+    if (File.Exists(filePath))
+        File.Delete(filePath);
+
+    File.Move(tempPath, filePath);
 }
 
 

@@ -1,29 +1,902 @@
 [
   {
-    "TotalNloc": 839,
-    "AvgNloc": 13.9,
-    "AvgCcn": 2.5,
-    "AvgToken": 79.3,
-    "FunctionCount": 55,
+    "TotalNloc": 64901,
+    "AvgNloc": 10.7,
+    "AvgCcn": 2.3,
+    "AvgToken": 73.7,
+    "FunctionCount": 4022,
+    "WarningCount": 29,
+    "RepoName": "streamlink/streamlink"
+  },
+  {
+    "TotalNloc": 39867,
+    "AvgNloc": 11.5,
+    "AvgCcn": 1.5,
+    "AvgToken": 66.1,
+    "FunctionCount": 2654,
+    "WarningCount": 4,
+    "RepoName": "streamlink/streamlink-twitch-gui"
+  },
+  {
+    "TotalNloc": 18,
+    "AvgNloc": 0,
+    "AvgCcn": 0,
+    "AvgToken": 0,
+    "FunctionCount": 1,
     "WarningCount": 0,
-    "RepoName": "public-apis/public-apis"
+    "RepoName": "josephmisiti/awesome-machine-learning"
   },
   {
-    "TotalNloc": 248,
-    "AvgNloc": 38.3,
-    "AvgCcn": 17.3,
-    "AvgToken": 276.3,
-    "FunctionCount": 6,
-    "WarningCount": 2,
-    "RepoName": "EbookFoundation/free-programming-books"
+    "TotalNloc": 1272,
+    "AvgNloc": 17.1,
+    "AvgCcn": 4.2,
+    "AvgToken": 103.7,
+    "FunctionCount": 63,
+    "WarningCount": 3,
+    "RepoName": "sherlock-project/sherlock"
   },
   {
-    "TotalNloc": 655,
-    "AvgNloc": 3.6,
+    "TotalNloc": 10509,
+    "AvgNloc": 6.6,
+    "AvgCcn": 1.5,
+    "AvgToken": 43.5,
+    "FunctionCount": 1445,
+    "WarningCount": 3,
+    "RepoName": "pallets/flask"
+  },
+  {
+    "TotalNloc": 3635,
+    "AvgNloc": 15.2,
+    "AvgCcn": 3.2,
+    "AvgToken": 87.8,
+    "FunctionCount": 91,
+    "WarningCount": 0,
+    "RepoName": "swisskyrepo/PayloadsAllTheThings"
+  },
+  {
+    "TotalNloc": 56647,
+    "AvgNloc": 8.7,
+    "AvgCcn": 1.7,
+    "AvgToken": 57.7,
+    "FunctionCount": 5142,
+    "WarningCount": 4,
+    "RepoName": "scrapy/scrapy"
+  },
+  {
+    "TotalNloc": 2204,
+    "AvgNloc": 3.5,
+    "AvgCcn": 1.2,
+    "AvgToken": 25.2,
+    "FunctionCount": 473,
+    "WarningCount": 0,
+    "RepoName": "faif/python-patterns"
+  },
+  {
+    "TotalNloc": 7032,
+    "AvgNloc": 7.9,
+    "AvgCcn": 2,
+    "AvgToken": 53.7,
+    "FunctionCount": 670,
+    "WarningCount": 7,
+    "RepoName": "psf/requests"
+  },
+  {
+    "TotalNloc": 115116,
+    "AvgNloc": 9.2,
+    "AvgCcn": 2.6,
+    "AvgToken": 56.1,
+    "FunctionCount": 1969,
+    "WarningCount": 37,
+    "RepoName": "psf/black"
+  },
+  {
+    "TotalNloc": 445,
+    "AvgNloc": 18.2,
+    "AvgCcn": 4.2,
+    "AvgToken": 96.7,
+    "FunctionCount": 11,
+    "WarningCount": 1,
+    "RepoName": "satwikkansal/wtfpython"
+  },
+  {
+    "TotalNloc": 4126,
+    "AvgNloc": 10.8,
+    "AvgCcn": 3.7,
+    "AvgToken": 72.8,
+    "FunctionCount": 281,
+    "WarningCount": 3,
+    "RepoName": "chubin/cheat.sh"
+  },
+  {
+    "TotalNloc": 91980,
+    "AvgNloc": 16.8,
     "AvgCcn": 1.4,
-    "AvgToken": 23.1,
-    "FunctionCount": 148,
+    "AvgToken": 75.1,
+    "FunctionCount": 4589,
+    "WarningCount": 16,
+    "RepoName": "fastapi/fastapi"
+  },
+  {
+    "TotalNloc": 119,
+    "AvgNloc": 15.2,
+    "AvgCcn": 5.5,
+    "AvgToken": 108.5,
+    "FunctionCount": 6,
     "WarningCount": 0,
-    "RepoName": "donnemartin/system-design-primer"
+    "RepoName": "0xAX/linux-insides"
+  },
+  {
+    "TotalNloc": 56067,
+    "AvgNloc": 14.9,
+    "AvgCcn": 2.4,
+    "AvgToken": 89.5,
+    "FunctionCount": 3065,
+    "WarningCount": 41,
+    "RepoName": "python-poetry/poetry"
+  },
+  {
+    "TotalNloc": 5743,
+    "AvgNloc": 10.5,
+    "AvgCcn": 2.9,
+    "AvgToken": 80.2,
+    "FunctionCount": 468,
+    "WarningCount": 8,
+    "RepoName": "tqdm/tqdm"
+  },
+  {
+    "TotalNloc": 4591,
+    "AvgNloc": 15.2,
+    "AvgCcn": 3.6,
+    "AvgToken": 92.3,
+    "FunctionCount": 255,
+    "WarningCount": 4,
+    "RepoName": "trailofbits/algo"
+  },
+  {
+    "TotalNloc": 50,
+    "AvgNloc": 3.7,
+    "AvgCcn": 1.3,
+    "AvgToken": 21,
+    "FunctionCount": 7,
+    "WarningCount": 0,
+    "RepoName": "charlax/professional-programming"
+  },
+  {
+    "TotalNloc": 10712,
+    "AvgNloc": 16.3,
+    "AvgCcn": 3.9,
+    "AvgToken": 104.2,
+    "FunctionCount": 354,
+    "WarningCount": 14,
+    "RepoName": "chubin/wttr.in"
+  },
+  {
+    "TotalNloc": 94741,
+    "AvgNloc": 12,
+    "AvgCcn": 1.7,
+    "AvgToken": 81.9,
+    "FunctionCount": 6486,
+    "WarningCount": 29,
+    "RepoName": "python-telegram-bot/python-telegram-bot"
+  },
+  {
+    "TotalNloc": 73372,
+    "AvgNloc": 8.5,
+    "AvgCcn": 1.8,
+    "AvgToken": 54.3,
+    "FunctionCount": 6681,
+    "WarningCount": 23,
+    "RepoName": "getredash/redash"
+  },
+  {
+    "TotalNloc": 6381,
+    "AvgNloc": 8.3,
+    "AvgCcn": 2.2,
+    "AvgToken": 57.3,
+    "FunctionCount": 687,
+    "WarningCount": 6,
+    "RepoName": "google/python-fire"
+  },
+  {
+    "TotalNloc": 68427,
+    "AvgNloc": 7.7,
+    "AvgCcn": 1.8,
+    "AvgToken": 56.9,
+    "FunctionCount": 7481,
+    "WarningCount": 28,
+    "RepoName": "celery/celery"
+  },
+  {
+    "TotalNloc": 31715,
+    "AvgNloc": 10,
+    "AvgCcn": 2,
+    "AvgToken": 77.4,
+    "FunctionCount": 2615,
+    "WarningCount": 18,
+    "RepoName": "locustio/locust"
+  },
+  {
+    "TotalNloc": 9901,
+    "AvgNloc": 12.2,
+    "AvgCcn": 3.6,
+    "AvgToken": 98.7,
+    "FunctionCount": 704,
+    "WarningCount": 20,
+    "RepoName": "KurtBestor/Hitomi-Downloader"
+  },
+  {
+    "TotalNloc": 11139,
+    "AvgNloc": 10.5,
+    "AvgCcn": 1.9,
+    "AvgToken": 59.5,
+    "FunctionCount": 943,
+    "WarningCount": 1,
+    "RepoName": "ycm-core/YouCompleteMe"
+  },
+  {
+    "TotalNloc": 147195,
+    "AvgNloc": 15.4,
+    "AvgCcn": 3,
+    "AvgToken": 106.2,
+    "FunctionCount": 8151,
+    "WarningCount": 143,
+    "RepoName": "facebookresearch/fairseq"
+  },
+  {
+    "TotalNloc": 3608,
+    "AvgNloc": 13,
+    "AvgCcn": 3.6,
+    "AvgToken": 89.3,
+    "FunctionCount": 228,
+    "WarningCount": 3,
+    "RepoName": "ungoogled-software/ungoogled-chromium"
+  },
+  {
+    "TotalNloc": 15674,
+    "AvgNloc": 8.6,
+    "AvgCcn": 2.7,
+    "AvgToken": 74.2,
+    "FunctionCount": 1536,
+    "WarningCount": 3,
+    "RepoName": "keon/algorithms"
+  },
+  {
+    "TotalNloc": 56894,
+    "AvgNloc": 13.6,
+    "AvgCcn": 3.5,
+    "AvgToken": 96.7,
+    "FunctionCount": 3415,
+    "WarningCount": 104,
+    "RepoName": "ArchiveBox/ArchiveBox"
+  },
+  {
+    "TotalNloc": 1953,
+    "AvgNloc": 8.4,
+    "AvgCcn": 2.5,
+    "AvgToken": 84.2,
+    "FunctionCount": 184,
+    "WarningCount": 0,
+    "RepoName": "junyanz/pytorch-CycleGAN-and-pix2pix"
+  },
+  {
+    "TotalNloc": 6300,
+    "AvgNloc": 11,
+    "AvgCcn": 1.7,
+    "AvgToken": 64.8,
+    "FunctionCount": 461,
+    "WarningCount": 4,
+    "RepoName": "cookiecutter/cookiecutter"
+  },
+  {
+    "TotalNloc": 8512,
+    "AvgNloc": 11.5,
+    "AvgCcn": 2.2,
+    "AvgToken": 101.6,
+    "FunctionCount": 517,
+    "WarningCount": 2,
+    "RepoName": "pytorch/examples"
+  },
+  {
+    "TotalNloc": 13276,
+    "AvgNloc": 7,
+    "AvgCcn": 1.6,
+    "AvgToken": 48.2,
+    "FunctionCount": 1503,
+    "WarningCount": 10,
+    "RepoName": "Delgan/loguru"
+  },
+  {
+    "TotalNloc": 1217,
+    "AvgNloc": 5.4,
+    "AvgCcn": 1.8,
+    "AvgToken": 42.6,
+    "FunctionCount": 161,
+    "WarningCount": 0,
+    "RepoName": "jhao104/proxy_pool"
+  },
+  {
+    "TotalNloc": 18804,
+    "AvgNloc": 8.4,
+    "AvgCcn": 1.6,
+    "AvgToken": 59.9,
+    "FunctionCount": 1819,
+    "WarningCount": 7,
+    "RepoName": "magic-wormhole/magic-wormhole"
+  },
+  {
+    "TotalNloc": 7993,
+    "AvgNloc": 7.4,
+    "AvgCcn": 1.9,
+    "AvgToken": 60.9,
+    "FunctionCount": 856,
+    "WarningCount": 1,
+    "RepoName": "chriskiehl/Gooey"
+  },
+  {
+    "TotalNloc": 28529,
+    "AvgNloc": 7.8,
+    "AvgCcn": 1.9,
+    "AvgToken": 53.6,
+    "FunctionCount": 3225,
+    "WarningCount": 13,
+    "RepoName": "tornadoweb/tornado"
+  },
+  {
+    "TotalNloc": 122636,
+    "AvgNloc": 13.4,
+    "AvgCcn": 2.7,
+    "AvgToken": 118.8,
+    "FunctionCount": 7362,
+    "WarningCount": 101,
+    "RepoName": "pyg-team/pytorch_geometric"
+  },
+  {
+    "TotalNloc": 10839,
+    "AvgNloc": 12.6,
+    "AvgCcn": 3.8,
+    "AvgToken": 109.2,
+    "FunctionCount": 714,
+    "WarningCount": 16,
+    "RepoName": "ranaroussi/yfinance"
+  },
+  {
+    "TotalNloc": 2370,
+    "AvgNloc": 6,
+    "AvgCcn": 1.4,
+    "AvgToken": 42.7,
+    "FunctionCount": 334,
+    "WarningCount": 0,
+    "RepoName": "nginx-proxy/nginx-proxy"
+  },
+  {
+    "TotalNloc": 44923,
+    "AvgNloc": 14.2,
+    "AvgCcn": 2.6,
+    "AvgToken": 111.8,
+    "FunctionCount": 2656,
+    "WarningCount": 33,
+    "RepoName": "magenta/magenta"
+  },
+  {
+    "TotalNloc": 344690,
+    "AvgNloc": 6,
+    "AvgCcn": 1.8,
+    "AvgToken": 47,
+    "FunctionCount": 3511,
+    "WarningCount": 7,
+    "RepoName": "joke2k/faker"
+  },
+  {
+    "TotalNloc": 46450,
+    "AvgNloc": 8.5,
+    "AvgCcn": 2,
+    "AvgToken": 54.1,
+    "FunctionCount": 4122,
+    "WarningCount": 27,
+    "RepoName": "sanic-org/sanic"
+  },
+  {
+    "TotalNloc": 1238,
+    "AvgNloc": 9.2,
+    "AvgCcn": 1.5,
+    "AvgToken": 57.8,
+    "FunctionCount": 136,
+    "WarningCount": 1,
+    "RepoName": "trekhleb/learn-python"
+  },
+  {
+    "TotalNloc": 14007,
+    "AvgNloc": 7.9,
+    "AvgCcn": 2,
+    "AvgToken": 54.3,
+    "FunctionCount": 1383,
+    "WarningCount": 12,
+    "RepoName": "pallets/click"
+  },
+  {
+    "TotalNloc": 23631,
+    "AvgNloc": 12.2,
+    "AvgCcn": 3.3,
+    "AvgToken": 92.1,
+    "FunctionCount": 1752,
+    "WarningCount": 46,
+    "RepoName": "fail2ban/fail2ban"
+  },
+  {
+    "TotalNloc": 15494,
+    "AvgNloc": 10.6,
+    "AvgCcn": 3.9,
+    "AvgToken": 73.4,
+    "FunctionCount": 1221,
+    "WarningCount": 38,
+    "RepoName": "ranger/ranger"
+  },
+  {
+    "TotalNloc": 601,
+    "AvgNloc": 19.2,
+    "AvgCcn": 5.2,
+    "AvgToken": 122.6,
+    "FunctionCount": 25,
+    "WarningCount": 1,
+    "RepoName": "ActivityWatch/activitywatch"
+  },
+  {
+    "TotalNloc": 66365,
+    "AvgNloc": 9.5,
+    "AvgCcn": 1.6,
+    "AvgToken": 65.1,
+    "FunctionCount": 6103,
+    "WarningCount": 30,
+    "RepoName": "aio-libs/aiohttp"
+  },
+  {
+    "TotalNloc": 109864,
+    "AvgNloc": 26.8,
+    "AvgCcn": 4,
+    "AvgToken": 161.7,
+    "FunctionCount": 2856,
+    "WarningCount": 150,
+    "RepoName": "caronc/apprise"
+  },
+  {
+    "TotalNloc": 48793,
+    "AvgNloc": 7.5,
+    "AvgCcn": 2.4,
+    "AvgToken": 58.7,
+    "FunctionCount": 4648,
+    "WarningCount": 55,
+    "RepoName": "Rapptz/discord.py"
+  },
+  {
+    "TotalNloc": 10046,
+    "AvgNloc": 13.1,
+    "AvgCcn": 4,
+    "AvgToken": 89.2,
+    "FunctionCount": 689,
+    "WarningCount": 28,
+    "RepoName": "laramies/theHarvester"
+  },
+  {
+    "TotalNloc": 140367,
+    "AvgNloc": 11.7,
+    "AvgCcn": 2.7,
+    "AvgToken": 94.2,
+    "FunctionCount": 6571,
+    "WarningCount": 122,
+    "RepoName": "fortra/impacket"
+  },
+  {
+    "TotalNloc": 68365,
+    "AvgNloc": 13.1,
+    "AvgCcn": 2.3,
+    "AvgToken": 91.9,
+    "FunctionCount": 4450,
+    "WarningCount": 28,
+    "RepoName": "treeverse/dvc"
+  },
+  {
+    "TotalNloc": 4863,
+    "AvgNloc": 6.3,
+    "AvgCcn": 1.6,
+    "AvgToken": 42.7,
+    "FunctionCount": 618,
+    "WarningCount": 4,
+    "RepoName": "fabric/fabric"
+  },
+  {
+    "TotalNloc": 462,
+    "AvgNloc": 8.6,
+    "AvgCcn": 2,
+    "AvgToken": 56.6,
+    "FunctionCount": 29,
+    "WarningCount": 0,
+    "RepoName": "edent/SuperTinyIcons"
+  },
+  {
+    "TotalNloc": 170,
+    "AvgNloc": 7.3,
+    "AvgCcn": 1.3,
+    "AvgToken": 40.3,
+    "FunctionCount": 3,
+    "WarningCount": 0,
+    "RepoName": "jupyter/jupyter"
+  },
+  {
+    "TotalNloc": 5561,
+    "AvgNloc": 14.7,
+    "AvgCcn": 5,
+    "AvgToken": 111.5,
+    "FunctionCount": 321,
+    "WarningCount": 18,
+    "RepoName": "mail-in-a-box/mailinabox"
+  },
+  {
+    "TotalNloc": 2073,
+    "AvgNloc": 12.8,
+    "AvgCcn": 2.4,
+    "AvgToken": 90.7,
+    "FunctionCount": 149,
+    "WarningCount": 4,
+    "RepoName": "lra/mackup"
+  },
+  {
+    "TotalNloc": 14331,
+    "AvgNloc": 9.7,
+    "AvgCcn": 1.6,
+    "AvgToken": 61.4,
+    "FunctionCount": 1202,
+    "WarningCount": 4,
+    "RepoName": "pre-commit/pre-commit"
+  },
+  {
+    "TotalNloc": 129944,
+    "AvgNloc": 11.8,
+    "AvgCcn": 3.1,
+    "AvgToken": 78.2,
+    "FunctionCount": 7731,
+    "WarningCount": 123,
+    "RepoName": "geekcomputers/Python"
+  },
+  {
+    "TotalNloc": 64089,
+    "AvgNloc": 12.8,
+    "AvgCcn": 3.2,
+    "AvgToken": 103.1,
+    "FunctionCount": 4097,
+    "WarningCount": 90,
+    "RepoName": "horovod/horovod"
+  },
+  {
+    "TotalNloc": 17985,
+    "AvgNloc": 8.9,
+    "AvgCcn": 2.5,
+    "AvgToken": 63.8,
+    "FunctionCount": 1336,
+    "WarningCount": 21,
+    "RepoName": "gunthercox/ChatterBot"
+  },
+  {
+    "TotalNloc": 41845,
+    "AvgNloc": 10.8,
+    "AvgCcn": 1.9,
+    "AvgToken": 52.7,
+    "FunctionCount": 2866,
+    "WarningCount": 12,
+    "RepoName": "pyodide/pyodide"
+  },
+  {
+    "TotalNloc": 242669,
+    "AvgNloc": 16,
+    "AvgCcn": 2.6,
+    "AvgToken": 123.4,
+    "FunctionCount": 12312,
+    "WarningCount": 155,
+    "RepoName": "dmlc/dgl"
+  },
+  {
+    "TotalNloc": 4697,
+    "AvgNloc": 11.2,
+    "AvgCcn": 3.1,
+    "AvgToken": 72.1,
+    "FunctionCount": 339,
+    "WarningCount": 7,
+    "RepoName": "maurosoria/dirsearch"
+  },
+  {
+    "TotalNloc": 19885,
+    "AvgNloc": 12.9,
+    "AvgCcn": 2.6,
+    "AvgToken": 61.1,
+    "FunctionCount": 1414,
+    "WarningCount": 25,
+    "RepoName": "google/yapf"
+  },
+  {
+    "TotalNloc": 21221,
+    "AvgNloc": 8.1,
+    "AvgCcn": 3,
+    "AvgToken": 81.1,
+    "FunctionCount": 2308,
+    "WarningCount": 30,
+    "RepoName": "idank/explainshell"
+  },
+  {
+    "TotalNloc": 85,
+    "AvgNloc": 7.1,
+    "AvgCcn": 2.3,
+    "AvgToken": 66.7,
+    "FunctionCount": 10,
+    "WarningCount": 0,
+    "RepoName": "rougier/numpy-100"
+  },
+  {
+    "TotalNloc": 21874,
+    "AvgNloc": 17.7,
+    "AvgCcn": 4.3,
+    "AvgToken": 180.5,
+    "FunctionCount": 816,
+    "WarningCount": 32,
+    "RepoName": "PySimpleGUI/PySimpleGUI"
+  },
+  {
+    "TotalNloc": 78220,
+    "AvgNloc": 12.1,
+    "AvgCcn": 1.8,
+    "AvgToken": 59.7,
+    "FunctionCount": 5854,
+    "WarningCount": 25,
+    "RepoName": "pytest-dev/pytest"
+  },
+  {
+    "TotalNloc": 44472,
+    "AvgNloc": 12.7,
+    "AvgCcn": 2.4,
+    "AvgToken": 98.7,
+    "FunctionCount": 2784,
+    "WarningCount": 17,
+    "RepoName": "optuna/optuna"
+  },
+  {
+    "TotalNloc": 46,
+    "AvgNloc": 5.3,
+    "AvgCcn": 2,
+    "AvgToken": 39.7,
+    "FunctionCount": 7,
+    "WarningCount": 0,
+    "RepoName": "rossant/awesome-math"
+  },
+  {
+    "TotalNloc": 97488,
+    "AvgNloc": 11.4,
+    "AvgCcn": 2,
+    "AvgToken": 82.4,
+    "FunctionCount": 7266,
+    "WarningCount": 47,
+    "RepoName": "redis/redis-py"
+  },
+  {
+    "TotalNloc": 3707,
+    "AvgNloc": 8.7,
+    "AvgCcn": 2.1,
+    "AvgToken": 58.1,
+    "FunctionCount": 205,
+    "WarningCount": 1,
+    "RepoName": "cookiecutter/cookiecutter-django"
+  },
+  {
+    "TotalNloc": 60612,
+    "AvgNloc": 9.7,
+    "AvgCcn": 3.4,
+    "AvgToken": 72.8,
+    "FunctionCount": 1772,
+    "WarningCount": 45,
+    "RepoName": "Gallopsled/pwntools"
+  },
+  {
+    "TotalNloc": 12789,
+    "AvgNloc": 15.3,
+    "AvgCcn": 2.8,
+    "AvgToken": 93.5,
+    "FunctionCount": 748,
+    "WarningCount": 15,
+    "RepoName": "getpelican/pelican"
+  },
+  {
+    "TotalNloc": 6268,
+    "AvgNloc": 13.7,
+    "AvgCcn": 3.5,
+    "AvgToken": 96.3,
+    "FunctionCount": 393,
+    "WarningCount": 11,
+    "RepoName": "sshuttle/sshuttle"
+  },
+  {
+    "TotalNloc": 10027,
+    "AvgNloc": 8.9,
+    "AvgCcn": 2.4,
+    "AvgToken": 62,
+    "FunctionCount": 871,
+    "WarningCount": 15,
+    "RepoName": "dbcli/pgcli"
+  },
+  {
+    "TotalNloc": 35907,
+    "AvgNloc": 12.6,
+    "AvgCcn": 2.8,
+    "AvgToken": 90.4,
+    "FunctionCount": 2412,
+    "WarningCount": 41,
+    "RepoName": "borgbackup/borg"
+  },
+  {
+    "TotalNloc": 180630,
+    "AvgNloc": 18.9,
+    "AvgCcn": 4.2,
+    "AvgToken": 133.8,
+    "FunctionCount": 8386,
+    "WarningCount": 366,
+    "RepoName": "PaddlePaddle/PaddleFormers"
+  },
+  {
+    "TotalNloc": 144239,
+    "AvgNloc": 14.7,
+    "AvgCcn": 3.6,
+    "AvgToken": 107.4,
+    "FunctionCount": 2445,
+    "WarningCount": 56,
+    "RepoName": "evilsocket/opensnitch"
+  },
+  {
+    "TotalNloc": 772,
+    "AvgNloc": 14,
+    "AvgCcn": 4.5,
+    "AvgToken": 100,
+    "FunctionCount": 30,
+    "WarningCount": 1,
+    "RepoName": "s0md3v/Photon"
+  },
+  {
+    "TotalNloc": 9527,
+    "AvgNloc": 13.2,
+    "AvgCcn": 2.8,
+    "AvgToken": 84.6,
+    "FunctionCount": 523,
+    "WarningCount": 6,
+    "RepoName": "pypa/pipx"
+  },
+  {
+    "TotalNloc": 80985,
+    "AvgNloc": 18.3,
+    "AvgCcn": 4.3,
+    "AvgToken": 102,
+    "FunctionCount": 3929,
+    "WarningCount": 154,
+    "RepoName": "seleniumbase/SeleniumBase"
+  },
+  {
+    "TotalNloc": 0,
+    "AvgNloc": 0,
+    "AvgCcn": 0,
+    "AvgToken": 0,
+    "FunctionCount": 1,
+    "WarningCount": 0,
+    "RepoName": "cyrus-and/gdb-dashboard"
+  },
+  {
+    "TotalNloc": 13244,
+    "AvgNloc": 8,
+    "AvgCcn": 1.6,
+    "AvgToken": 60.1,
+    "FunctionCount": 1440,
+    "WarningCount": 1,
+    "RepoName": "Kludex/starlette"
+  },
+  {
+    "TotalNloc": 42280,
+    "AvgNloc": 8.9,
+    "AvgCcn": 2.1,
+    "AvgToken": 75.5,
+    "FunctionCount": 3636,
+    "WarningCount": 23,
+    "RepoName": "coleifer/peewee"
+  },
+  {
+    "TotalNloc": 11616,
+    "AvgNloc": 11.7,
+    "AvgCcn": 3.2,
+    "AvgToken": 83.5,
+    "FunctionCount": 789,
+    "WarningCount": 21,
+    "RepoName": "dbcli/mycli"
+  },
+  {
+    "TotalNloc": 16595,
+    "AvgNloc": 11.6,
+    "AvgCcn": 3.7,
+    "AvgToken": 81.6,
+    "FunctionCount": 1196,
+    "WarningCount": 47,
+    "RepoName": "LonamiWebs/Telethon"
+  },
+  {
+    "TotalNloc": 3750,
+    "AvgNloc": 16.8,
+    "AvgCcn": 5.4,
+    "AvgToken": 124.9,
+    "FunctionCount": 202,
+    "WarningCount": 19,
+    "RepoName": "newren/git-filter-repo"
+  },
+  {
+    "TotalNloc": 4599,
+    "AvgNloc": 6.7,
+    "AvgCcn": 3,
+    "AvgToken": 74.6,
+    "FunctionCount": 608,
+    "WarningCount": 13,
+    "RepoName": "instaloader/instaloader"
+  },
+  {
+    "TotalNloc": 14330,
+    "AvgNloc": 13.4,
+    "AvgCcn": 2.5,
+    "AvgToken": 90.1,
+    "FunctionCount": 999,
+    "WarningCount": 18,
+    "RepoName": "icloud-photos-downloader/icloud_photos_downloader"
+  },
+  {
+    "TotalNloc": 95292,
+    "AvgNloc": 11.7,
+    "AvgCcn": 2.3,
+    "AvgToken": 80.4,
+    "FunctionCount": 5543,
+    "WarningCount": 53,
+    "RepoName": "ludwig-ai/ludwig"
+  },
+  {
+    "TotalNloc": 25783,
+    "AvgNloc": 16.1,
+    "AvgCcn": 2.6,
+    "AvgToken": 117.8,
+    "FunctionCount": 1377,
+    "WarningCount": 18,
+    "RepoName": "cleanlab/cleanlab"
+  },
+  {
+    "TotalNloc": 6187,
+    "AvgNloc": 7.3,
+    "AvgCcn": 1.8,
+    "AvgToken": 50.8,
+    "FunctionCount": 693,
+    "WarningCount": 6,
+    "RepoName": "tweepy/tweepy"
+  },
+  {
+    "TotalNloc": 35412,
+    "AvgNloc": 14.1,
+    "AvgCcn": 3.6,
+    "AvgToken": 87,
+    "FunctionCount": 2066,
+    "WarningCount": 46,
+    "RepoName": "giampaolo/psutil"
+  },
+  {
+    "TotalNloc": 498,
+    "AvgNloc": 19.3,
+    "AvgCcn": 5.4,
+    "AvgToken": 153.7,
+    "FunctionCount": 22,
+    "WarningCount": 0,
+    "RepoName": "wsvincent/awesome-django"
+  },
+  {
+    "TotalNloc": 149069,
+    "AvgNloc": 8,
+    "AvgCcn": 2,
+    "AvgToken": 70.9,
+    "FunctionCount": 13732,
+    "WarningCount": 138,
+    "RepoName": "cupy/cupy"
   }
 ]
