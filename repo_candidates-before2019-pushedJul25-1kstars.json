@@ -414,17 +414,6 @@
         }
     },
     {
-        "full_name": "gto76/python-cheatsheet",
-        "language": "Python",
-        "stargazers_count": 38254,
-        "forks_count": 6731,
-        "created_at": "2018-01-25T04:16:53Z",
-        "pushed_at": "2026-02-23T06:15:26Z",
-        "size": 13010,
-        "open_issues_count": 0,
-        "license": null
-    },
-    {
         "full_name": "vnpy/vnpy",
         "language": "Python",
         "stargazers_count": 37068,
@@ -874,19 +863,6 @@
         }
     },
     {
-        "full_name": "squidfunk/mkdocs-material",
-        "language": "Python",
-        "stargazers_count": 26143,
-        "forks_count": 4049,
-        "created_at": "2016-01-28T22:09:23Z",
-        "pushed_at": "2026-02-28T03:10:23Z",
-        "size": 146378,
-        "open_issues_count": 3,
-        "license": {
-            "spdx_id": "MIT"
-        }
-    },
-    {
         "full_name": "ungoogled-software/ungoogled-chromium",
         "language": "Python",
         "stargazers_count": 25872,
@@ -1327,19 +1303,6 @@
         }
     },
     {
-        "full_name": "spotify/luigi",
-        "language": "Python",
-        "stargazers_count": 18680,
-        "forks_count": 2451,
-        "created_at": "2012-09-20T15:06:38Z",
-        "pushed_at": "2026-02-28T01:37:49Z",
-        "size": 11515,
-        "open_issues_count": 154,
-        "license": {
-            "spdx_id": "Apache-2.0"
-        }
-    },
-    {
         "full_name": "sanic-org/sanic",
         "language": "Python",
         "stargazers_count": 18640,
@@ -1415,19 +1378,6 @@
         "open_issues_count": 262,
         "license": {
             "spdx_id": "NOASSERTION"
-        }
-    },
-    {
-        "full_name": "mikf/gallery-dl",
-        "language": "Python",
-        "stargazers_count": 16986,
-        "forks_count": 1338,
-        "created_at": "2014-10-12T19:38:05Z",
-        "pushed_at": "2026-02-28T18:17:09Z",
-        "size": 18378,
-        "open_issues_count": 1103,
-        "license": {
-            "spdx_id": "GPL-2.0"
         }
     },
     {
@@ -56146,7 +56096,7 @@
         }
     },
     {
-        "full_name": "nRF24/RF24",
+        "full_name": "ndrk1wi/Portspoof/RF24",
         "language": "C++",
         "stargazers_count": 2425,
         "forks_count": 1029,
