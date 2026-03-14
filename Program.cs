@@ -6,8 +6,46 @@ using System.Text.Json.Serialization;
 
 //await CollectRepos();
 //ValidateRepoData();
-await RunAnalysis();
+//await RunAnalysis();
+MergeDatasets();
 
+
+static void MergeDatasets()
+{
+    var resultsFile = Path.Combine(Environment.CurrentDirectory, "repo_analysis_results.json");
+    var jsonOpts = new JsonSerializerOptions
+    {
+        WriteIndented = true,
+        DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+    };
+
+    var serialized = File.ReadAllText(resultsFile);
+    var existingResults = JsonSerializer.Deserialize<List<LizardTotals>>(serialized) ?? new List<LizardTotals>();
+
+    var collectedReposFile = Path.Combine(Environment.CurrentDirectory, "repo_candidates-before2019-pushedJul25-1kstars.json");
+    var collectedJson = File.ReadAllText(collectedReposFile);
+
+    var collectedRepos = JsonSerializer.Deserialize<List<GitHubRepoItem>>(collectedJson) ?? new List<GitHubRepoItem>();
+
+    var mergedList = new List<RepoAnalysisResult>();
+    //merge by repo name into a new list of RepoAnalysisResult
+    foreach (var result in existingResults)
+    {
+        var matchingRepo = collectedRepos.FirstOrDefault(r => string.Equals(r.FullName, result.RepoName, StringComparison.OrdinalIgnoreCase));
+        if (matchingRepo != null)
+        {
+            var merged = new RepoAnalysisResult(result, matchingRepo);
+            mergedList.Add(merged);
+        }
+    }
+
+    var mergedFile = Path.Combine(Environment.CurrentDirectory, "merged_repo_analysis_results.json");
+    var mergedSerialized = JsonSerializer.Serialize(mergedList, jsonOpts);
+    File.WriteAllText(mergedFile, mergedSerialized);
+
+    Console.WriteLine($"Merged {mergedList.Count} results into {mergedFile}");
+
+}
 
 
 static async Task RunAnalysis()
