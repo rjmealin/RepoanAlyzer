@@ -17,6 +17,7 @@ public sealed record LizardTotals(
 public static class RepoAnalyzer
 {
     private const int MaxParallelismCap = 16;
+    private static readonly TimeSpan ExternalProcessTimeout = TimeSpan.FromSeconds(30);
 
     /// <summary>
     /// Clone -> run lizard -> parse totals -> delete folder.
@@ -226,7 +227,15 @@ public static class RepoAnalyzer
         var stdoutTask = p.StandardOutput.ReadToEndAsync();
         var stderrTask = p.StandardError.ReadToEndAsync();
 
-        await p.WaitForExitAsync(ct);
+        var timedOut = await WaitForExitWithTimeoutAsync(p, fileName, ct);
+        if (timedOut)
+        {
+            var timeoutStdout = await stdoutTask;
+            var timeoutStderr = await stderrTask;
+            throw new TimeoutException(
+                $"{fileName} timed out after {ExternalProcessTimeout.TotalSeconds:0}s.\n" +
+                $"STDOUT:\n{timeoutStdout}\nSTDERR:\n{timeoutStderr}");
+        }
 
         var stdout = await stdoutTask;
         var stderr = await stderrTask;
@@ -303,7 +312,15 @@ public static class RepoAnalyzer
         var stdoutTask = p.StandardOutput.ReadToEndAsync();
         var stderrTask = p.StandardError.ReadToEndAsync();
 
-        await p.WaitForExitAsync(ct);
+        var timedOut = await WaitForExitWithTimeoutAsync(p, fileName, ct);
+        if (timedOut)
+        {
+            var timeoutStdout = await stdoutTask;
+            var timeoutStderr = await stderrTask;
+            throw new TimeoutException(
+                $"{fileName} timed out after {ExternalProcessTimeout.TotalSeconds:0}s.\n" +
+                $"STDOUT:\n{timeoutStdout}\nSTDERR:\n{timeoutStderr}");
+        }
 
         var stdout = await stdoutTask;
         var stderr = await stderrTask;
@@ -343,6 +360,45 @@ public static class RepoAnalyzer
 
     private static string EscapeArg(string arg)
         => OperatingSystem.IsWindows() ? $"\"{arg}\"" : arg;
+
+    private static async Task<bool> WaitForExitWithTimeoutAsync(
+        Process process,
+        string fileName,
+        CancellationToken ct)
+    {
+        using var timeoutCts = new CancellationTokenSource(ExternalProcessTimeout);
+        using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(ct, timeoutCts.Token);
+
+        try
+        {
+            await process.WaitForExitAsync(linkedCts.Token);
+            return false;
+        }
+        catch (OperationCanceledException) when (timeoutCts.IsCancellationRequested)
+        {
+            TryKillProcess(process);
+            await process.WaitForExitAsync(CancellationToken.None);
+            return true;
+        }
+        catch (OperationCanceledException)
+        {
+            TryKillProcess(process);
+            throw new OperationCanceledException($"{fileName} canceled.", ct);
+        }
+    }
+
+    private static void TryKillProcess(Process process)
+    {
+        try
+        {
+            if (!process.HasExited)
+                process.Kill(entireProcessTree: true);
+        }
+        catch
+        {
+            // Best effort
+        }
+    }
 
     private static int GetDefaultParallelism()
     {
