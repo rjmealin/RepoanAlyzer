@@ -7,10 +7,11 @@ using System.Text.Json.Serialization;
 //await CollectRepos();
 //ValidateRepoData();
 //await RunAnalysis();
-MergeDatasets();
+MergeDatasets(true);
 
 
-static void MergeDatasets()
+
+static void MergeDatasets(bool exportCsv)
 {
     var resultsFile = Path.Combine(Environment.CurrentDirectory, "repo_analysis_results.json");
     var jsonOpts = new JsonSerializerOptions
@@ -28,6 +29,7 @@ static void MergeDatasets()
     var collectedRepos = JsonSerializer.Deserialize<List<GitHubRepoItem>>(collectedJson) ?? new List<GitHubRepoItem>();
 
     var mergedList = new List<RepoAnalysisResult>();
+
     //merge by repo name into a new list of RepoAnalysisResult
     foreach (var result in existingResults)
     {
@@ -39,11 +41,19 @@ static void MergeDatasets()
         }
     }
 
-    var mergedFile = Path.Combine(Environment.CurrentDirectory, "merged_repo_analysis_results.json");
-    var mergedSerialized = JsonSerializer.Serialize(mergedList, jsonOpts);
-    File.WriteAllText(mergedFile, mergedSerialized);
+    if (exportCsv)
+    {    
+        RepoAnalysisCsvExporter.WriteToCsv(mergedList, "repo_analysis_results.csv");
+    }
+    else
+    {
+        var mergedFile = Path.Combine(Environment.CurrentDirectory, "merged_repo_analysis_results.json");
+        var mergedSerialized = JsonSerializer.Serialize(mergedList, jsonOpts);
+        File.WriteAllText(mergedFile, mergedSerialized);
 
-    Console.WriteLine($"Merged {mergedList.Count} results into {mergedFile}");
+        Console.WriteLine($"Merged {mergedList.Count} results into {mergedFile}");
+    }
+    
 
 }
 
