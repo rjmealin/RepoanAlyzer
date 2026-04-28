@@ -4,12 +4,30 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 
 
-//await CollectRepos();
-//ValidateRepoData();
-//await RunAnalysis();
-MergeDatasets(true);
+var arguments = Environment.GetCommandLineArgs();
 
-
+//"collect", "validate", "analyze", "merge", "exportcsv"
+switch  (arguments.Length > 1 ? arguments[1].ToLower() : "")
+{
+    case "collect":
+        await CollectRepos();
+        break;
+    case "validate":
+        ValidateRepoData();
+        break;
+    case "analyze":
+        await RunAnalysis();
+        break;
+    case "merge":
+        MergeDatasets(false);
+        break;
+    case "exportcsv":
+        MergeDatasets(true);
+        break;
+    default:
+        Console.WriteLine("Usage: dotnet run [collect|validate|analyze|merge|exportcsv]");
+        break;
+}
 
 static void MergeDatasets(bool exportCsv)
 {
@@ -69,11 +87,7 @@ static async Task RunAnalysis()
     };
 
     var existingResults = await LoadExistingResultsAsync(resultsFile);
-    var completedRepos = new HashSet<string>(
-        existingResults
-            .Select(r => r.RepoName)
-            .Where(name => !string.IsNullOrWhiteSpace(name)),
-        StringComparer.OrdinalIgnoreCase);
+    var completedRepos = new HashSet<string>(existingResults.Select(r => r.RepoName).Where(name => !string.IsNullOrWhiteSpace(name)), StringComparer.OrdinalIgnoreCase);
 
     var reposToAnalyze = repos
         .Where(r => r.Size < 50000 && !string.IsNullOrWhiteSpace(r.FullName))
@@ -87,8 +101,7 @@ static async Task RunAnalysis()
 
     var writeGate = new SemaphoreSlim(1, 1);
 
-    await RepoAnalyzer.CloneAnalyzeDeleteManyWithCallbacksAsync(
-        reposToAnalyze,
+    await RepoAnalyzer.CloneAnalyzeDeleteManyWithCallbacksAsync(reposToAnalyze,
         onSuccess: async totals =>
         {
             await writeGate.WaitAsync();
@@ -131,10 +144,7 @@ static async Task<List<LizardTotals>> LoadExistingResultsAsync(string filePath)
     return JsonSerializer.Deserialize<List<LizardTotals>>(json) ?? new List<LizardTotals>();
 }
 
-static async Task WriteResultsAtomicallyAsync(
-    string filePath,
-    List<LizardTotals> results,
-    JsonSerializerOptions jsonOptions)
+static async Task WriteResultsAtomicallyAsync(string filePath,List<LizardTotals> results,JsonSerializerOptions jsonOptions)
 {
     var directory = Path.GetDirectoryName(filePath) ?? Environment.CurrentDirectory;
     Directory.CreateDirectory(directory);
@@ -144,8 +154,9 @@ static async Task WriteResultsAtomicallyAsync(
     await File.WriteAllTextAsync(tempPath, serialized);
 
     if (File.Exists(filePath))
+    {
         File.Delete(filePath);
-
+    }
     File.Move(tempPath, filePath);
 }
 
@@ -153,7 +164,6 @@ static async Task WriteResultsAtomicallyAsync(
 
 static List<GitHubRepoItem> GetAllRepos()
 {
-    //repo_candidates-before2019-pushedJul25-1kstars.json
     var file = Path.Combine(Environment.CurrentDirectory, "repo_candidates-before2019-pushedJul25-1kstars.json");
     if (!File.Exists(file))
     {

@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 using System.Collections.Concurrent;
 
 
-public sealed record LizardTotals(
+public record LizardTotals(
     int TotalNloc,
     double AvgNloc,
     double AvgCcn,
@@ -19,28 +19,20 @@ public static class RepoAnalyzer
     private const int MaxParallelismCap = 16;
     private static readonly TimeSpan ExternalProcessTimeout = TimeSpan.FromSeconds(30);
 
-    /// <summary>
-    /// Clone -> run lizard -> parse totals -> delete folder.
-    /// </summary>
-    public static async Task<LizardTotals> CloneAnalyzeDeleteAsync(
-        GitHubRepoItem repo,
-        CancellationToken ct = default)
+    public static async Task<LizardTotals> CloneAnalyzeDeleteAsync(GitHubRepoItem repo, CancellationToken ct = default)
     {
-        var fullName = !string.IsNullOrWhiteSpace(repo.FullName)
-            ? repo.FullName
-            : throw new ArgumentException("Repository full name cannot be null or empty.", nameof(repo));
+        var fullName = !string.IsNullOrWhiteSpace(repo.FullName) ? repo.FullName : throw new ArgumentException("Repository full name cannot be null or empty.", nameof(repo));
 
         var tempRoot = Path.Combine(Path.GetTempPath(), "repo-analysis");
         Directory.CreateDirectory(tempRoot);
 
-        // Use a unique folder per run
         var safeName = fullName.Replace('/', '_');
         var workDir = Path.Combine(tempRoot, $"{safeName}_{Guid.NewGuid():N}");
 
         try
         {
             Console.WriteLine($"Analyzing {fullName}...");
-            // 1) Clone (shallow)
+
             var cloneUrl = $"https://github.com/{fullName}.git";
             await RunProcessAsync(
                 fileName: "git",
@@ -48,10 +40,14 @@ public static class RepoAnalyzer
                 workingDirectory: tempRoot,
                 ct: ct);
 
-            // Optional: remove .git to shrink disk usage before analysis
+
             var gitDir = Path.Combine(workDir, ".git");
+
             if (Directory.Exists(gitDir))
+            {
                 TryDeleteDirectory(gitDir);
+            }
+
 
             // 2) Analyze with lizard (recursive by default)
             // You can exclude tests if you want: -x"**/test/**" etc. :contentReference[oaicite:1]{index=1}
@@ -63,12 +59,11 @@ public static class RepoAnalyzer
 
             // 3) Parse the totals summary
             var totals = ParseLizardTotals(lizardOutput, fullName);
-            
+
             return totals;
         }
         finally
         {
-            // 4) Always delete the repo folder
             TryDeleteDirectory(workDir);
         }
     }
@@ -250,11 +245,8 @@ public static class RepoAnalyzer
         string fileName,
         string arguments,
         string workingDirectory,
-        CancellationToken ct
-    )
+        CancellationToken ct)
     {
-        // On macOS, PATH from IDE-launched processes may not include brew/pip paths.
-        // Running via zsh -lc uses your login shell environment so commands like `lizard` resolve.
         var isMac = OperatingSystem.IsMacOS();
         var isLinux = OperatingSystem.IsLinux();
 
@@ -262,10 +254,9 @@ public static class RepoAnalyzer
 
         if (isMac || isLinux)
         {
-            // Execute in a login shell so PATH is correct
             psi = new ProcessStartInfo
             {
-                FileName = "/bin/zsh",          // macOS default shell; works well for brew env
+                FileName = "/bin/zsh",          
                 WorkingDirectory = workingDirectory,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
@@ -273,13 +264,11 @@ public static class RepoAnalyzer
                 CreateNoWindow = true
             };
 
-            // -l = login shell, -c = command string
             psi.ArgumentList.Add("-lc");
             psi.ArgumentList.Add($"{fileName} {arguments}");
         }
         else
         {
-            // Windows path (keep your existing behavior)
             psi = new ProcessStartInfo
             {
                 FileName = fileName,
@@ -300,7 +289,6 @@ public static class RepoAnalyzer
         }
         catch (System.ComponentModel.Win32Exception ex)
         {
-            // Provide a much more actionable error message
             throw new Exception(
                 $"Failed to start process '{psi.FileName}'. " +
                 $"Likely PATH issue (e.g., '{fileName}' not found). " +
@@ -325,7 +313,6 @@ public static class RepoAnalyzer
         var stdout = await stdoutTask;
         var stderr = await stderrTask;
 
-        // Lizard may exit non-zero due to warning thresholds but still produce output.
         if (p.ExitCode != 0 && string.IsNullOrWhiteSpace(stdout))
             throw new Exception($"{fileName} exited {p.ExitCode}\nSTDERR:\n{stderr}");
 
