@@ -48,16 +48,12 @@ public static class RepoAnalyzer
                 TryDeleteDirectory(gitDir);
             }
 
-
-            // 2) Analyze with lizard (recursive by default)
-            // You can exclude tests if you want: -x"**/test/**" etc. :contentReference[oaicite:1]{index=1}
             var lizardOutput = await RunProcessCaptureStdoutAsync(
                 fileName: "/Users/runescape/Library/Python/3.12/bin/lizard",
                 arguments: EscapeArg(workDir),
                 workingDirectory: tempRoot,
                 ct: ct);
 
-            // 3) Parse the totals summary
             var totals = ParseLizardTotals(lizardOutput, fullName);
 
             return totals;
@@ -123,7 +119,9 @@ public static class RepoAnalyzer
 
         var degree = maxDegreeOfParallelism.GetValueOrDefault(GetDefaultParallelism());
         if (degree < 1)
+        {
             throw new ArgumentOutOfRangeException(nameof(maxDegreeOfParallelism), "Parallelism must be at least 1.");
+        }
 
         var options = new ParallelOptions
         {
@@ -167,14 +165,12 @@ public static class RepoAnalyzer
             throw new InvalidOperationException("Could not locate Lizard totals header in output.");
         }
 
-        // Find the next line that starts with a number (skip separators)
         var dataLine = lines.Skip(headerIdx + 1).FirstOrDefault(l => Regex.IsMatch(l, @"^\s*\d+"));
         if (dataLine is null)
         {
             throw new InvalidOperationException("Could not locate Lizard totals data row in output.");
         }
 
-        // Split on whitespace
         var parts = Regex.Split(dataLine.Trim(), @"\s+");
 
         if (parts.Length < 6)
@@ -218,7 +214,6 @@ public static class RepoAnalyzer
 
         p.Start();
 
-        // Drain output to avoid deadlocks on large stderr/stdout
         var stdoutTask = p.StandardOutput.ReadToEndAsync();
         var stderrTask = p.StandardError.ReadToEndAsync();
 
@@ -314,7 +309,9 @@ public static class RepoAnalyzer
         var stderr = await stderrTask;
 
         if (p.ExitCode != 0 && string.IsNullOrWhiteSpace(stdout))
+        {
             throw new Exception($"{fileName} exited {p.ExitCode}\nSTDERR:\n{stderr}");
+        }
 
         return stdout;
     }
@@ -325,7 +322,6 @@ public static class RepoAnalyzer
         {
             if (!Directory.Exists(path)) return;
 
-            // Clear read-only attributes if any
             foreach (var file in Directory.EnumerateFiles(path, "*", SearchOption.AllDirectories))
             {
                 try
@@ -334,14 +330,13 @@ public static class RepoAnalyzer
                     if ((attr & FileAttributes.ReadOnly) != 0)
                         File.SetAttributes(file, attr & ~FileAttributes.ReadOnly);
                 }
-                catch { /* ignore */ }
+                catch { }
             }
 
             Directory.Delete(path, recursive: true);
         }
         catch
         {
-            // Best-effort cleanup; for production, log this.
         }
     }
 
@@ -383,14 +378,11 @@ public static class RepoAnalyzer
         }
         catch
         {
-            // Best effort
         }
     }
 
     private static int GetDefaultParallelism()
     {
-        // Cloning and process execution are mostly I/O bound. Keep this bounded
-        // to avoid overwhelming disk/network while still using concurrency.
         var calculated = Math.Max(2, Environment.ProcessorCount * 2);
         return Math.Min(calculated, MaxParallelismCap);
     }

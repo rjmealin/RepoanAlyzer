@@ -193,7 +193,6 @@ static void ValidateRepoData()
         return;
     }
 
-    //lets just look at our the top 100 repos im curious
     var i = 0;
     foreach (var repo in data)
     {
@@ -249,7 +248,6 @@ static async Task CollectRepos()
     {
         var query = $"language:{lang} {string.Join(" ", queryParams)}";
 
-        //adding paging loop
         for (var i = 1; i <= 100; i++)
         {
             var pageQuery = query + $" page={i + 1}";
@@ -268,7 +266,7 @@ static async Task CollectRepos()
             catch (Exception ex)
             {
                 Console.WriteLine($"Error fetching repos for {label} page {i}: {ex.Message}");
-                break; // Exit the paging loop on error
+                break; 
             }
 
             //this is to avoid hammering the github api
@@ -293,7 +291,6 @@ static async Task<List<GitHubRepoItem>> SearchRepositoriesAsync(HttpClient http,
     using var resp = await http.GetAsync(url);
     if (resp.StatusCode == (HttpStatusCode)403)
     {
-        // Often rate limiting. Try to surface helpful info.
         var remaining = resp.Headers.TryGetValues("X-RateLimit-Remaining", out var remVals) ? remVals.FirstOrDefault() : null;
         var reset = resp.Headers.TryGetValues("X-RateLimit-Reset", out var resVals) ? resVals.FirstOrDefault() : null;
 
